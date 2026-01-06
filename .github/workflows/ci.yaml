@@ -39,7 +39,10 @@ jobs:
           context: app
           file: app/Dockerfile
           load: true
-          tags: app:scan
+          tags: |
+            app:scan
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
       # ---------- Security scan ----------
       - name: Trivy scan (HIGH, CRITICAL)
